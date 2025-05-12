@@ -35,7 +35,6 @@ public class Enemy : MonoBehaviour
     }
 
     private void RotateToDestination(){
-        Debug.Log($"Destino actual: {actualDestination.x}, Posicion {transform.position.x}");
         if(actualDestination.x < transform.position.x){
             transform.localScale = Vector3.one;
         } else {
@@ -43,6 +42,5 @@ public class Enemy : MonoBehaviour
         }
 
     }
-
 
 }
