@@ -1,10 +1,12 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
     [SerializeField] protected Transform[] patrolPoints;
     [SerializeField] protected float speedPatrol;
+    [SerializeField] protected float attackDamage;
 
     protected Vector3 actualDestination;
     protected int actualIndex = 0;
@@ -41,6 +43,19 @@ public class Enemy : MonoBehaviour
             transform.localScale = new Vector3(-1, 1, 1);
         }
 
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("PlayerDetection"))
+        {
+            Debug.Log("Player Detectado");
+        }
+        else if (other.gameObject.CompareTag("PlayerHitBox"))
+        {
+            HealthSystem healthSystem = other.GetComponent<HealthSystem>();
+            healthSystem.GetDamage(attackDamage);
+        }
     }
 
 }

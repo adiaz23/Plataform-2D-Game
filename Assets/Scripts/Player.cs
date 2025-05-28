@@ -2,54 +2,103 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    
+
+    [Header("Movement System")]
     [SerializeField] private float speed = 12;
-    [SerializeField] private float jumbForce = 30;
+    [SerializeField] private float jumpForce = 30;
+    [SerializeField] private LayerMask jumpableLayer;
+    [SerializeField] private float detectionDistanceFloor;
+
+
+    [Header("Attack System")]
+    [SerializeField] private float attackRadius = 10;
+    [SerializeField] private LayerMask dagamageableLayer;
+    [SerializeField] private float attackDamage;
+
+    private Transform foot;
+    private Transform attackPoint;
     private Rigidbody2D rb;
     private Animator animator;
     private float inputH;
 
-    
-
-    void Start()
+    void Awake()
     {
+        attackPoint = transform.GetChild(1);
+        foot = transform.GetChild(2);
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
+    void Start()
+    {
+     
+    }
+
     void Update()
     {
-       Move();
-       Jump();
-       Attack();
+        Move();
+        Jump();
+        LauchAttack();
     }
 
     private void Move()
-    {   animator.SetBool("running", false);
+    {
+        animator.SetBool("running", false);
         inputH = Input.GetAxisRaw("Horizontal");
-        if (inputH != 0){
+        if (inputH != 0)
+        {
             animator.SetBool("running", true);
-            if(inputH > 0){
+            if (inputH > 0)
+            {
                 transform.eulerAngles = Vector3.zero;
-            } else {
+            }
+            else
+            {
                 transform.eulerAngles = new Vector3(0, 180, 0);
             }
         }
-            
-        rb.linearVelocity = new Vector2(inputH  * speed, rb.linearVelocityY);
+
+        rb.linearVelocity = new Vector2(inputH * speed, rb.linearVelocityY);
     }
 
-    private void Jump(){
-        if(Input.GetKeyDown(KeyCode.Space)){
-            rb.AddForce(Vector2.up * jumbForce, ForceMode2D.Impulse);
+    private void Jump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && InFloor())
+        {
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             animator.SetTrigger("jump");
         }
     }
 
-    private void Attack(){
-        if(Input.GetKeyDown(KeyCode.E)){
+    private bool InFloor()
+    {
+        return Physics2D.Raycast(foot.position, Vector3.down, detectionDistanceFloor, jumpableLayer);
+    }
+
+    private void LauchAttack()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
             animator.SetTrigger("attack");
         }
     }
+
+    //Animation Event
+    private void Attack()
+    {
+        Collider2D[] enemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRadius, dagamageableLayer);
+        foreach (Collider2D enemy in enemies)
+        {
+            HealthSystem healthSystem = enemy.gameObject.GetComponent<HealthSystem>();
+            healthSystem.GetDamage(attackDamage);
+        }
+    }
+
+
+    private void OnDrawGizmos()
+    {
+        if(attackPoint != null)
+            Gizmos.DrawSphere(attackPoint.position, attackRadius);
+    }
+
 }
