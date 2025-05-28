@@ -31,6 +31,7 @@ public class Wizard : Enemy
         }
     }
 
+    //Animation event
     private void shootFireBall()
     {
         Instantiate(fireBall, spawnFireBallsPoint.position, transform.rotation);

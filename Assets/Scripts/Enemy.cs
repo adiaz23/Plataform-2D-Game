@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -11,7 +10,10 @@ public class Enemy : MonoBehaviour
     protected Vector3 actualDestination;
     protected int actualIndex = 0;
 
-    protected virtual void Start(){
+    protected bool canFollowPlayer = true;
+
+    protected virtual void Start()
+    {
         actualDestination = patrolPoints[actualIndex].position;
         StartCoroutine(Patrol());
     }
@@ -45,11 +47,20 @@ public class Enemy : MonoBehaviour
 
     }
 
+    private IEnumerator FollowPlayer(Collider2D player){  
+        while (gameObject && player != null){
+            float steps = speedPatrol * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, steps);
+            yield return null;
+        }
+    }
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("PlayerDetection"))
         {
-            Debug.Log("Player Detectado");
+            StopAllCoroutines();
+            StartCoroutine(FollowPlayer(other));
         }
         else if (other.gameObject.CompareTag("PlayerHitBox"))
         {
