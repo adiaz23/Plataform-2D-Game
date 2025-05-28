@@ -1,16 +1,38 @@
+using System.Collections;
 using UnityEngine;
 
 public class Wizard : Enemy
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    [SerializeField] private GameObject fireBall;
+    [SerializeField] private float attackTime;
+
+    private Transform spawnFireBallsPoint;
+    private Animator anim;
+
     protected override void Start()
     {
-        Debug.Log("no necesito moverme");
+        anim = GetComponent<Animator>();
+        StartCoroutine(Attack());
+        spawnFireBallsPoint = transform.GetChild(1);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    IEnumerator Attack()
+    {
+        while (gameObject)
+        {
+            anim.SetTrigger("attack");
+            yield return new WaitForSeconds(attackTime);
+        }
+    }
+
+    private void shootFireBall()
+    {
+        Instantiate(fireBall, spawnFireBallsPoint.position, transform.rotation);
     }
 }
