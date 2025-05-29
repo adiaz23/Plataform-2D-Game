@@ -9,7 +9,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected float speedPatrol;
 
     [Header("Attack System")]
-    [SerializeField] protected float attackDamage;
+    [SerializeField] protected int attackDamage;
 
     protected Vector3 actualDestination;
     protected int actualIndex = 0;

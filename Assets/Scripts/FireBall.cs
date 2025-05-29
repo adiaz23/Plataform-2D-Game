@@ -5,7 +5,7 @@ public class FireBall : MonoBehaviour
 {
 
     [SerializeField] private float shootImpulse;
-    [SerializeField] private float playerDamege;
+    [SerializeField] private int playerDamege;
     private Rigidbody2D rb;
 
     void Start()

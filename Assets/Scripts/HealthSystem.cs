@@ -2,14 +2,27 @@ using UnityEngine;
 
 public class HealthSystem : MonoBehaviour
 {
-    [SerializeField] private float lives;
+    [SerializeField] HealthBar healthBar;
+    [SerializeField] private int lives;
 
-    public void GetDamage(float damage)
-    {
-        lives -= damage;
+
+    private void Start()
+    {   
+        if(healthBar != null)
+            healthBar.SetMaxHealth(lives);
     }
 
-    public float GetLives()
+    public void GetDamage(int damage)
+    {
+        if (healthBar != null)
+        {
+            lives -= damage;
+            healthBar.SetHealth(lives);
+        }
+        
+    }
+
+    public int GetLives()
     {
         return lives;
     }

@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     [Header("Attack System")]
     [SerializeField] private float attackRadius = 10;
     [SerializeField] private LayerMask dagamageableLayer;
-    [SerializeField] private float attackDamage;
+    [SerializeField] private int attackDamage;
     [SerializeField] private AudioClip clip;
 
     private Transform foot;
