@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -23,6 +24,7 @@ public class Player : MonoBehaviour
     private Animator animator;
     private HealthSystem healthSystem;
     private AudioSource audioSource;
+    private bool isJumping = false;
     private float inputH;
 
     void Awake()
@@ -45,6 +47,7 @@ public class Player : MonoBehaviour
         Move();
         Jump();
         LauchAttack();
+        Fall();
     }
 
     private void Move()
@@ -71,6 +74,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && InFloor())
         {
+            isJumping = true;
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             animator.SetTrigger("jump");
         }
@@ -81,6 +85,19 @@ public class Player : MonoBehaviour
         return Physics2D.Raycast(foot.position, Vector3.down, detectionDistanceFloor, jumpableLayer);
     }
 
+    private void Fall()
+    {
+         if (!InFloor() && !isJumping)
+            animator.SetBool("falling", true);
+        else if (InFloor())
+            animator.SetBool("falling", false);
+    }
+
+    //Animation Event
+    private void SetIsJumpingToFalse()
+    {
+        isJumping = false;
+    }
     private void LauchAttack()
     {
         if (Input.GetKeyDown(KeyCode.E))
