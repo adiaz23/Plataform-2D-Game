@@ -13,11 +13,15 @@ public class Wizard : Enemy
     protected override void Start()
     {
         anim = GetComponent<Animator>();
-        StartCoroutine(Attack());
         spawnFireBallsPoint = transform.GetChild(1);
     }
 
-    new IEnumerator Attack()
+    protected override void EnemyDetected(Collider2D other)
+    {
+        StartCoroutine(Attack());
+    }
+
+    IEnumerator Attack()
     {
         while (gameObject)
         {
@@ -30,10 +34,5 @@ public class Wizard : Enemy
     private void shootFireBall()
     {
         Instantiate(fireBall, spawnFireBallsPoint.position, transform.rotation);
-    }
-
-    protected override void LaunchAttack()
-    {
-
     }
 }

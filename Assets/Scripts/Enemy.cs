@@ -7,16 +7,9 @@ public abstract class Enemy : MonoBehaviour
     [Header("Movement System")]
     [SerializeField] protected Transform[] patrolPoints;
     [SerializeField] protected float speedPatrol;
-    
+
     [Header("Attack System")]
     [SerializeField] protected float attackDamage;
-
-    [SerializeField] protected LayerMask dagamageableLayer;
-
-    [SerializeField] protected float attackRadius;
-
-    [SerializeField] protected Transform attackPoint;
-
 
     protected Vector3 actualDestination;
     protected int actualIndex = 0;
@@ -67,7 +60,7 @@ public abstract class Enemy : MonoBehaviour
 
     }
 
-    private IEnumerator FollowPlayer(Collider2D player)
+    protected IEnumerator FollowPlayer(Collider2D player)
     {
         while (gameObject && player != null)
         {
@@ -78,12 +71,10 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    protected abstract void LaunchAttack();
 
     //Animation event
-    protected virtual void Attack()
+    protected virtual void Attack(Collider2D player)
     {
-        Collider2D player = Physics2D.OverlapCircle(attackPoint.position, attackRadius, dagamageableLayer);
         if (player != null)
         {
             HealthSystem healthSystem = player.GetComponent<HealthSystem>();
@@ -92,29 +83,24 @@ public abstract class Enemy : MonoBehaviour
 
     }
 
+    protected abstract void EnemyDetected(Collider2D other);
+
     //Animation event
     protected virtual void Destroy()
     {
         Destroy(gameObject);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    protected virtual void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("PlayerDetection"))
         {
-            StopAllCoroutines();
-            StartCoroutine(FollowPlayer(other));
+            EnemyDetected(other);
         }
         else if (other.gameObject.CompareTag("PlayerHitBox"))
         {
-            LaunchAttack();
+            Attack(other);
         }
-    }
-    
-    private void OnDrawGizmos()
-    {
-        if(transform.position != null)
-            Gizmos.DrawSphere(attackPoint.position, attackRadius);
     }
 
 }

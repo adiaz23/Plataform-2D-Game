@@ -11,8 +11,15 @@ public class Bee : Enemy
         base.Start();
     }
 
-    protected override void LaunchAttack()
+    protected override void EnemyDetected(Collider2D other)
+    {
+        StopAllCoroutines();
+        StartCoroutine(FollowPlayer(other));
+    }
+
+    protected override void Attack(Collider2D other)
     {
         anim.SetTrigger("Attack");
+        base.Attack(other);
     }
 }
