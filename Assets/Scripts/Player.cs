@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     [Header("Movement System")]
     [SerializeField] private float speed = 12;
     [SerializeField] private float jumpForce = 30;
+    [SerializeField] private int maxJumps = 1;
     [SerializeField] private LayerMask jumpableLayer;
     [SerializeField] private float detectionDistanceFloor;
 
@@ -25,6 +26,7 @@ public class Player : MonoBehaviour
     private HealthSystem healthSystem;
     private AudioSource audioSource;
     private bool isJumping = false;
+    private int jumpCount = 0;
     private float inputH;
 
     void Awake()
@@ -72,11 +74,13 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && InFloor())
+        if (Input.GetKeyDown(KeyCode.Space) && jumpCount < maxJumps)
         {
             isJumping = true;
+            rb.linearVelocity = new Vector2(rb.linearVelocityX, 0);
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             animator.SetTrigger("jump");
+            jumpCount++;
         }
     }
 
@@ -87,10 +91,14 @@ public class Player : MonoBehaviour
 
     private void Fall()
     {
-         if (!InFloor() && !isJumping)
+        if (!InFloor() && !isJumping)
             animator.SetBool("falling", true);
-        else if (InFloor())
+        else if (InFloor() && rb.linearVelocityY <= 0.1f)
+        {
             animator.SetBool("falling", false);
+            jumpCount = 0;
+        }
+            
     }
 
     //Animation Event
