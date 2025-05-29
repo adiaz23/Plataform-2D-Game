@@ -49576,7 +49576,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2454770410756212228, guid: 8577647a4568d674c9d219658670402b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3875253076818053753, guid: 8577647a4568d674c9d219658670402b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -49786,7 +49786,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495887033787305690, guid: 8020aecb2e680d840a330119ee337519, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -49866,6 +49866,10 @@ PrefabInstance:
       propertyPath: fireBall
       value: 
       objectReference: {fileID: 1221659086975034359, guid: 82c3cfc1b486e0d468db6f5b3bd5de1d, type: 3}
+    - target: {fileID: 7577981402097291985, guid: 1f8f0b3698880c346a9ebd54391c0248, type: 3}
+      propertyPath: attackTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7577981402097291985, guid: 1f8f0b3698880c346a9ebd54391c0248, type: 3}
       propertyPath: dagamageableLayer.m_Bits
       value: 64

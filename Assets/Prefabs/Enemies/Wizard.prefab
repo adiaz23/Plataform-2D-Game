@@ -141,7 +141,7 @@ MonoBehaviour:
   speedPatrol: 0
   attackDamage: 10
   fireBall: {fileID: 0}
-  attackTime: 2
+  attackTime: 1
 --- !u!114 &1812876570070172742
 MonoBehaviour:
   m_ObjectHideFlags: 0
