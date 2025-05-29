@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 8011735076165347990}
   m_Layer: 6
   m_Name: Bee
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -216,10 +216,6 @@ MonoBehaviour:
   - {fileID: 0}
   speedPatrol: 4
   attackDamage: 0
-  dagamageableLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  attackRadius: 10
 --- !u!114 &4769807367170536919
 MonoBehaviour:
   m_ObjectHideFlags: 0

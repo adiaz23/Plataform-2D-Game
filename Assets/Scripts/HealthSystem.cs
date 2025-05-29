@@ -7,10 +7,21 @@ public class HealthSystem : MonoBehaviour
     public void GetDamage(float damage)
     {
         lives -= damage;
-        if (lives <= 0)
-        {
-            Destroy(this.gameObject);
-        }
+    }
+
+    public float GetLives()
+    {
+        return lives;
+    }
+
+    public void StartDeadAnimation(Animator animator)
+    {
+        animator.SetTrigger("dead");
+    }
+
+    public void Destroy()
+    {
+        Destroy(gameObject);
     }
 
 }

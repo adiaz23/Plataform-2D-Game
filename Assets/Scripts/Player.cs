@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -19,6 +20,7 @@ public class Player : MonoBehaviour
     private Transform attackPoint;
     private Rigidbody2D rb;
     private Animator animator;
+    private HealthSystem healthSystem;
     private float inputH;
 
     void Awake()
@@ -27,11 +29,12 @@ public class Player : MonoBehaviour
         foot = transform.GetChild(2);
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        healthSystem = GetComponent<HealthSystem>();
     }
 
     void Start()
     {
-     
+
     }
 
     void Update()
@@ -89,16 +92,26 @@ public class Player : MonoBehaviour
         Collider2D[] enemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRadius, dagamageableLayer);
         foreach (Collider2D enemy in enemies)
         {
-            HealthSystem healthSystem = enemy.gameObject.GetComponent<HealthSystem>();
-            healthSystem.GetDamage(attackDamage);
+            HealthSystem enemyHealthSystem = enemy.gameObject.GetComponent<HealthSystem>();
+            enemyHealthSystem.GetDamage(attackDamage);
         }
     }
 
-
     private void OnDrawGizmos()
     {
-        if(attackPoint != null)
+        if (attackPoint != null)
             Gizmos.DrawSphere(attackPoint.position, attackRadius);
+    }
+
+    void OnTriggerEnter2D(Collider2D other){
+        
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            if (healthSystem.GetLives() <= 0)
+            {
+                healthSystem.StartDeadAnimation(animator);
+            }
+        }
     }
 
 }
