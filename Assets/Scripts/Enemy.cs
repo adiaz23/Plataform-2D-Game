@@ -1,11 +1,22 @@
 using System.Collections;
+using Mono.Cecil.Cil;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour
 {
+    [Header("Movement System")]
     [SerializeField] protected Transform[] patrolPoints;
     [SerializeField] protected float speedPatrol;
+    
+    [Header("Attack System")]
     [SerializeField] protected float attackDamage;
+
+    [SerializeField] protected LayerMask dagamageableLayer;
+
+    [SerializeField] protected float attackRadius;
+
+    [SerializeField] protected Transform attackPoint;
+
 
     protected Vector3 actualDestination;
     protected int actualIndex = 0;
@@ -18,43 +29,75 @@ public class Enemy : MonoBehaviour
         StartCoroutine(Patrol());
     }
 
-    protected IEnumerator Patrol(){
+    protected IEnumerator Patrol()
+    {
         float steps = speedPatrol * Time.deltaTime;
-        while(gameObject){
-            while(transform.position != actualDestination){
+        while (gameObject)
+        {
+            while (transform.position != actualDestination)
+            {
                 transform.position = Vector3.MoveTowards(transform.position, actualDestination, steps);
                 yield return null;
             }
             SetNewDestination();
-        }                
+        }
     }
 
-    private void SetNewDestination(){
+    private void SetNewDestination()
+    {
         actualIndex++;
-        if(actualIndex >= patrolPoints.Length){    
+        if (actualIndex >= patrolPoints.Length)
+        {
             actualIndex = 0;
         }
         actualDestination = patrolPoints[actualIndex].position;
-        RotateToDestination();
+        RotateToDestination(actualDestination);
     }
 
-    private void RotateToDestination(){
-        if(actualDestination.x < transform.position.x){
+    private void RotateToDestination(Vector3 actualPosition)
+    {
+        if (actualPosition.x < transform.position.x)
+        {
             transform.localScale = Vector3.one;
-        } else {
+        }
+        else
+        {
             transform.localScale = new Vector3(-1, 1, 1);
         }
 
     }
 
-    private IEnumerator FollowPlayer(Collider2D player){  
-        while (gameObject && player != null){
+    private IEnumerator FollowPlayer(Collider2D player)
+    {
+        while (gameObject && player != null)
+        {
             float steps = speedPatrol * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, player.transform.position, steps);
+            RotateToDestination(player.transform.position);
             yield return null;
         }
     }
-    
+
+    protected abstract void LaunchAttack();
+
+    //Animation event
+    protected virtual void Attack()
+    {
+        Collider2D player = Physics2D.OverlapCircle(attackPoint.position, attackRadius, dagamageableLayer);
+        if (player != null)
+        {
+            HealthSystem healthSystem = player.GetComponent<HealthSystem>();
+            healthSystem.GetDamage(attackDamage);
+        }
+
+    }
+
+    //Animation event
+    protected virtual void Destroy()
+    {
+        Destroy(gameObject);
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("PlayerDetection"))
@@ -64,9 +107,14 @@ public class Enemy : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("PlayerHitBox"))
         {
-            HealthSystem healthSystem = other.GetComponent<HealthSystem>();
-            healthSystem.GetDamage(attackDamage);
+            LaunchAttack();
         }
+    }
+    
+    private void OnDrawGizmos()
+    {
+        if(transform.position != null)
+            Gizmos.DrawSphere(attackPoint.position, attackRadius);
     }
 
 }

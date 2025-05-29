@@ -17,12 +17,7 @@ public class Wizard : Enemy
         spawnFireBallsPoint = transform.GetChild(1);
     }
 
-    void Update()
-    {
-
-    }
-
-    IEnumerator Attack()
+    new IEnumerator Attack()
     {
         while (gameObject)
         {
@@ -35,5 +30,10 @@ public class Wizard : Enemy
     private void shootFireBall()
     {
         Instantiate(fireBall, spawnFireBallsPoint.position, transform.rotation);
+    }
+
+    protected override void LaunchAttack()
+    {
+
     }
 }
