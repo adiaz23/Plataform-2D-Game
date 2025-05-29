@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FireBall : MonoBehaviour
@@ -19,7 +20,7 @@ public class FireBall : MonoBehaviour
         {
             HealthSystem healthSystem = other.gameObject.GetComponent<HealthSystem>();
             healthSystem.GetDamage(playerDamege);
-            gameObject.SetActive(false);
+            Destroy(gameObject);
         }
     }
 }

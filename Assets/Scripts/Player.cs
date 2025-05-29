@@ -15,16 +15,19 @@ public class Player : MonoBehaviour
     [SerializeField] private float attackRadius = 10;
     [SerializeField] private LayerMask dagamageableLayer;
     [SerializeField] private float attackDamage;
+    [SerializeField] private AudioClip clip;
 
     private Transform foot;
     private Transform attackPoint;
     private Rigidbody2D rb;
     private Animator animator;
     private HealthSystem healthSystem;
+    private AudioSource audioSource;
     private float inputH;
 
     void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         attackPoint = transform.GetChild(1);
         foot = transform.GetChild(2);
         rb = GetComponent<Rigidbody2D>();
@@ -107,6 +110,7 @@ public class Player : MonoBehaviour
         
         if (other.gameObject.CompareTag("Enemy"))
         {
+            audioSource.PlayOneShot(clip);
             if (healthSystem.GetLives() <= 0)
             {
                 healthSystem.StartDeadAnimation(animator);
