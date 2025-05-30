@@ -14,12 +14,9 @@ public class HealthSystem : MonoBehaviour
 
     public void GetDamage(int damage)
     {
-        if (healthBar != null)
-        {
             lives -= damage;
-            healthBar.SetHealth(lives);
-        }
-        
+            if (healthBar != null)
+                healthBar.SetHealth(lives);   
     }
 
     public int GetLives()
