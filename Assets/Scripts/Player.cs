@@ -33,6 +33,8 @@ public class Player : MonoBehaviour
     private int jumpCount = 0;
     private float inputH;
 
+    public int MaxJumps { get => maxJumps; set => maxJumps = value; }
+
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -74,7 +76,7 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && jumpCount < maxJumps)
+        if (Input.GetKeyDown(KeyCode.Space) && jumpCount < MaxJumps)
         {
             isJumping = true;
             rb.linearVelocity = new Vector2(rb.linearVelocityX, 0);
