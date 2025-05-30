@@ -121,7 +121,9 @@ public class Player : MonoBehaviour
         foreach (Collider2D enemy in enemies)
         {
             HealthSystem enemyHealthSystem = enemy.gameObject.GetComponent<HealthSystem>();
+            AudioSource enemyAudioSource = enemy.gameObject.GetComponent<AudioSource>();
             enemyHealthSystem.GetDamage(attackDamage);
+            enemyAudioSource.PlayOneShot(enemyAudioSource.clip);
         }
     }
 

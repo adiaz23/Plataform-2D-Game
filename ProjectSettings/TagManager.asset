@@ -8,6 +8,7 @@ TagManager:
   - PlayerDetection
   - Enemy
   - Checkpoint
+  - AttackPoint
   layers:
   - Default
   - TransparentFX

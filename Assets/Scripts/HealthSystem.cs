@@ -29,7 +29,7 @@ public class HealthSystem : MonoBehaviour
         animator.SetTrigger("dead");
     }
 
-    public void Destroy()
+    public void DestroyGameObject()
     {
         Destroy(gameObject);
     }

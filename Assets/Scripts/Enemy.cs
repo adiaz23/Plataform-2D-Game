@@ -85,12 +85,6 @@ public abstract class Enemy : MonoBehaviour
 
     protected abstract void EnemyDetected(Collider2D other);
 
-    //Animation event
-    protected virtual void Destroy()
-    {
-        Destroy(gameObject);
-    }
-
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("PlayerDetection"))

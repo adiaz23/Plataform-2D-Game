@@ -22,11 +22,11 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: -5661168587888034565, guid: 77a4f824ef79f884d869b86ff37f3b05, type: 3}
-    - time: 0.15
+    - time: 0.016666668
       value: {fileID: 5636523469440960446, guid: 77a4f824ef79f884d869b86ff37f3b05, type: 3}
-    - time: 0.31666666
+    - time: 0.06666667
       value: {fileID: -1648440910895707049, guid: 77a4f824ef79f884d869b86ff37f3b05, type: 3}
-    - time: 0.46666667
+    - time: 0.1
       value: {fileID: 4615132983027724516, guid: 77a4f824ef79f884d869b86ff37f3b05, type: 3}
     attribute: m_Sprite
     path: 
@@ -59,7 +59,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.48333335
+    m_StopTime: 0.11666667
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -79,8 +79,8 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.48333332
-    functionName: Destroy
+  - time: 0.11666667
+    functionName: DestroyGameObject
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
