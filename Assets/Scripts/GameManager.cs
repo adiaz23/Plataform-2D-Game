@@ -1,16 +1,18 @@
-using System.Runtime.CompilerServices;
+using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
+    [SerializeField] GameObject GameOverMenu;
 
     private bool isPause = false;
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
-            Pause();        
+            Pause();
     }
 
     public void Pause()
@@ -28,4 +30,15 @@ public class GameManager : MonoBehaviour
             isPause = false;
         }
     }
+
+    public void GameOver()
+    {
+            GameOverMenu.SetActive(true);
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    
 }

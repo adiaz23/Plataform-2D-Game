@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
     [SerializeField] private int attackDamage;
     [SerializeField] private AudioClip clip;
 
+    [SerializeField] private GameManager gameManager;
+
     private Transform foot;
     private Transform attackPoint;
     private Rigidbody2D rb;
@@ -134,9 +136,10 @@ public class Player : MonoBehaviour
     private void Dead()
     {
         if (healthSystem.GetLives() <= 0 && !isDead)
-            {
-                healthSystem.StartDeadAnimation(animator);
-                isDead = true;
+        {
+            healthSystem.StartDeadAnimation(animator);
+            isDead = true;
+            gameManager.GameOver();
             }
     }
 
