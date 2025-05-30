@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Lumin;
 
 public class Platform : MonoBehaviour
 {
@@ -43,12 +44,25 @@ public class Platform : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("PlayerHitBox"))
-            other.gameObject.transform.parent = transform;
+        {
+            StartCoroutine(SafeParent(other.transform));
+        }
     }
 
     private void OnCollisionExit2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("PlayerHitBox"))
-            other.gameObject.transform.parent = null;
+            if (other.transform.parent == transform)
+                other.transform.SetParent(null, true);
     }
+
+    private IEnumerator SafeParent(Transform target)
+    {
+        yield return null;
+
+        if (gameObject.activeInHierarchy && target.gameObject.activeInHierarchy)
+        {
+            target.SetParent(transform, true);
+        }
+    } 
 }
