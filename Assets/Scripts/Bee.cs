@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class Bee : Enemy
 {
-
     protected override void EnemyDetected(Collider2D other)
     {
         StopAllCoroutines();
