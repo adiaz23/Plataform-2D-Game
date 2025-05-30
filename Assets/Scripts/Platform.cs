@@ -10,7 +10,6 @@ public class Platform : MonoBehaviour
     [SerializeField] protected float speed;
 
     protected Vector3 actualDestination;
-    private Vector3 lastPosition;
     protected int actualIndex = 0;
 
     private Transform playerOnPlatform;
