@@ -25,6 +25,8 @@ public class Player : MonoBehaviour
     private Animator animator;
     private HealthSystem healthSystem;
     private AudioSource audioSource;
+
+    private bool isDead = false;
     private bool isJumping = false;
     private int jumpCount = 0;
     private float inputH;
@@ -39,17 +41,13 @@ public class Player : MonoBehaviour
         healthSystem = GetComponent<HealthSystem>();
     }
 
-    void Start()
-    {
-
-    }
-
     void Update()
     {
         Move();
         Jump();
         LauchAttack();
         Fall();
+        Dead();
     }
 
     private void Move()
@@ -133,15 +131,20 @@ public class Player : MonoBehaviour
             Gizmos.DrawSphere(attackPoint.position, attackRadius);
     }
 
+    private void Dead()
+    {
+        if (healthSystem.GetLives() <= 0 && !isDead)
+            {
+                healthSystem.StartDeadAnimation(animator);
+                isDead = true;
+            }
+    }
+
     void OnTriggerEnter2D(Collider2D other){
         
         if (other.gameObject.CompareTag("Enemy"))
         {
-            audioSource.PlayOneShot(clip);
-            if (healthSystem.GetLives() <= 0)
-            {
-                healthSystem.StartDeadAnimation(animator);
-            }
+            audioSource.PlayOneShot(clip);        
         }
     }
 
