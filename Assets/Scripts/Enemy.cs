@@ -10,16 +10,29 @@ public abstract class Enemy : MonoBehaviour
 
     [Header("Attack System")]
     [SerializeField] protected int attackDamage;
-
+    
     protected Vector3 actualDestination;
+    protected HealthSystem healthSystem;
+    protected Animator animator;
     protected int actualIndex = 0;
-
     protected bool canFollowPlayer = true;
+    private bool isActive = false;
 
     protected virtual void Start()
     {
+        animator = GetComponent<Animator>();
+        healthSystem = GetComponent<HealthSystem>();
         actualDestination = patrolPoints[actualIndex].position;
         StartCoroutine(Patrol());
+    }
+
+    protected virtual void Update()
+    {
+        if (healthSystem.GetLives() <= 0 && !isActive)
+        {
+            healthSystem.StartDeadAnimation(animator);
+            isActive = true;
+        }
     }
 
     protected IEnumerator Patrol()
@@ -71,7 +84,6 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-
     //Animation event
     protected virtual void Attack(Collider2D player)
     {
@@ -96,5 +108,4 @@ public abstract class Enemy : MonoBehaviour
             Attack(other);
         }
     }
-
 }
