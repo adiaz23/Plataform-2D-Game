@@ -17,7 +17,6 @@ public class Platform : MonoBehaviour
     void Start()
     {
         actualDestination = points[actualIndex].position;
-        lastPosition = transform.position;
         StartCoroutine(Move());
     }
 
