@@ -9,6 +9,8 @@ TagManager:
   - Enemy
   - Checkpoint
   - AttackPoint
+  - Star
+  - Coins
   layers:
   - Default
   - TransparentFX

@@ -32,7 +32,9 @@ public class Player : MonoBehaviour
     private bool isJumping = false;
     private int jumpCount = 0;
     private float inputH;
-
+    private int coinsCollected = 0;
+    
+    public int CoinsCollected { get => coinsCollected; set => coinsCollected = value; }
     public int MaxJumps { get => maxJumps; set => maxJumps = value; }
 
     void Awake()
@@ -76,7 +78,7 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && jumpCount < MaxJumps)
+        if (Input.GetKeyDown(KeyCode.Space) && jumpCount < maxJumps)
         {
             isJumping = true;
             rb.linearVelocity = new Vector2(rb.linearVelocityX, 0);

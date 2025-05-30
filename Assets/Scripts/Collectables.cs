@@ -1,9 +1,18 @@
 using UnityEngine;
 
-public class Trigger : MonoBehaviour
+public class Collectables : MonoBehaviour
 {
 
+
+    [SerializeField] private CollectableType type;
+
     private AudioSource audioSource;
+
+    public enum CollectableType
+    {
+        Coin,
+        Star
+    }
     private CircleCollider2D boxCollider;
     private SpriteRenderer spriteRenderer;
 
@@ -16,22 +25,25 @@ public class Trigger : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("PlayerHitBox"))
+        if (!other.CompareTag("PlayerHitBox")) return;
+        var player = other.GetComponent<Player>();
+
+        switch (type)
         {
-            SetDoubleJump(other);
+            case CollectableType.Coin:
+                player.CoinsCollected += 1;
+                break;
+            case CollectableType.Star:
+                player.MaxJumps = 2;
+                break;
         }
+        OnCollect();
     }
 
-    void SetDoubleJump(Collider2D other)
+    private void OnCollect()
     {
-        other.gameObject.GetComponent<Player>().MaxJumps = 2;
         audioSource.PlayOneShot(audioSource.clip);
         boxCollider.enabled = false;
         spriteRenderer.enabled = false;
-    }
-
-    void SetPoints(Collider2D other)
-    {
-        
     }
 }
