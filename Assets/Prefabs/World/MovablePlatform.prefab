@@ -226,7 +226,7 @@ MonoBehaviour:
   points:
   - {fileID: 6040032737716693645}
   - {fileID: 5298423751357944555}
-  speed: 1
+  speed: 4
 --- !u!61 &541959230953332627
 BoxCollider2D:
   m_ObjectHideFlags: 0

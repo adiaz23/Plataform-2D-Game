@@ -10,24 +10,39 @@ public class Platform : MonoBehaviour
     [SerializeField] protected float speed;
 
     protected Vector3 actualDestination;
+    private Vector3 lastPosition;
     protected int actualIndex = 0;
+
+    private Transform playerOnPlatform;
+
     void Start()
     {
         actualDestination = points[actualIndex].position;
+        lastPosition = transform.position;
         StartCoroutine(Move());
     }
 
     IEnumerator Move()
     {
-        float steps = speed * Time.deltaTime;
-        while (gameObject)
+        while (true)
         {
-            while (transform.position != actualDestination)
+            float steps = speed * Time.deltaTime;
+            Vector3 previousPosition = transform.position;
+            transform.position = Vector3.MoveTowards(transform.position, actualDestination, steps);
+
+            Vector3 platformVelocity = transform.position - previousPosition;
+
+            if (playerOnPlatform != null)
             {
-                transform.position = Vector3.MoveTowards(transform.position, actualDestination, steps);
-                yield return null;
+                playerOnPlatform.position += platformVelocity;
             }
-            SetNewDestination();
+
+            if (transform.position == actualDestination)
+            {
+                SetNewDestination();
+            }
+
+            yield return null;
         }
     }
 
@@ -40,29 +55,16 @@ public class Platform : MonoBehaviour
         }
         actualDestination = points[actualIndex].position;
     }
-
-    private void OnCollisionEnter2D(Collision2D other)
+    
+    private void OnCollisionStay2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("PlayerHitBox"))
-        {
-            StartCoroutine(SafeParent(other.transform));
-        }
+            playerOnPlatform = other.transform;
     }
 
     private void OnCollisionExit2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("PlayerHitBox"))
-            if (other.transform.parent == transform)
-                other.transform.SetParent(null, true);
+            playerOnPlatform = null;
     }
-
-    private IEnumerator SafeParent(Transform target)
-    {
-        yield return null;
-
-        if (gameObject.activeInHierarchy && target.gameObject.activeInHierarchy)
-        {
-            target.SetParent(transform, true);
-        }
-    } 
 }
