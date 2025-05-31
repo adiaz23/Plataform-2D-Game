@@ -528,6 +528,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 1862842079}
+  playerDamge: 10
 --- !u!1001 &132803809
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -101502,6 +101503,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 1862842079}
+  playerDamge: 10
 --- !u!61 &479457696
 BoxCollider2D:
   m_ObjectHideFlags: 0
