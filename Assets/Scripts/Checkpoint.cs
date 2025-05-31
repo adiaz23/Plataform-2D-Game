@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
-    private Respawn respawnCollider;
+    private GameObject[] respawnCollider;
     private BoxCollider2D checkoutCollider;
 
     void Awake()
     {
-        respawnCollider = GameObject.FindGameObjectWithTag("Respawn").GetComponent<Respawn>();
+        respawnCollider = GameObject.FindGameObjectsWithTag("Respawn");
         checkoutCollider = GetComponent<BoxCollider2D>();
     }
 
@@ -16,7 +16,10 @@ public class Checkpoint : MonoBehaviour
     {
         if (other.gameObject.CompareTag("PlayerHitBox"))
         {
-            respawnCollider.SpawnPoint = this.gameObject.transform;
+            foreach (GameObject respawn in respawnCollider)
+            {
+                respawn.GetComponent<Respawn>().SpawnPoint = this.gameObject.transform;
+            }
             checkoutCollider.enabled = false;
         }
     }
