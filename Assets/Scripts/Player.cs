@@ -33,9 +33,12 @@ public class Player : MonoBehaviour
     private int jumpCount = 0;
     private float inputH;
     private int coinsCollected = 0;
+
+    private bool canMove = false;
     
     public int CoinsCollected { get => coinsCollected; set => coinsCollected = value; }
     public int MaxJumps { get => maxJumps; set => maxJumps = value; }
+    public bool CanMove { get => canMove; set => canMove = value; }
 
     void Awake()
     {
@@ -58,11 +61,13 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
-        animator.SetBool("running", false);
-        inputH = Input.GetAxisRaw("Horizontal");
-        if (inputH != 0)
+        if (canMove)
         {
-            animator.SetBool("running", true);
+            animator.SetBool("running", false);
+            inputH = Input.GetAxisRaw("Horizontal");
+            if (inputH != 0)
+            {
+                animator.SetBool("running", true);
             if (inputH > 0)
             {
                 transform.eulerAngles = Vector3.zero;
@@ -74,11 +79,12 @@ public class Player : MonoBehaviour
         }
 
         rb.linearVelocity = new Vector2(inputH * speed, rb.linearVelocityY);
+        }
     }
 
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && jumpCount < maxJumps)
+        if (Input.GetKeyDown(KeyCode.Space) && jumpCount < maxJumps && canMove)
         {
             isJumping = true;
             rb.linearVelocity = new Vector2(rb.linearVelocityX, 0);
@@ -112,7 +118,7 @@ public class Player : MonoBehaviour
     }
     private void LauchAttack()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.F) && canMove)
         {
             animator.SetTrigger("attack");
         }

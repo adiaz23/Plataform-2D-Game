@@ -1,18 +1,36 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
-    [SerializeField] GameObject GameOverMenu;
+    [SerializeField] GameObject gameOverMenu;
 
+    [SerializeField] GameObject tutorialScreen;
+
+    [SerializeField] Player player;
+    
     private bool isPause = false;
+    private bool isOpened = false;
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
             Pause();
+
+        if (Input.anyKey && !isOpened)
+        {
+            CloseTutorial();
+            StartCoroutine(Wait());
+            player.CanMove = true;
+        }
+    }
+
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(1f);
     }
 
     public void Pause()
@@ -33,12 +51,18 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-            GameOverMenu.SetActive(true);
+        gameOverMenu.SetActive(true);
     }
 
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void CloseTutorial()
+    {
+        tutorialScreen.SetActive(false);
+        isOpened = true;
     }
     
 }
