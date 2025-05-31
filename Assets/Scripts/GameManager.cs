@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
     [SerializeField] GameObject gameOverMenu;
+
+    [SerializeField] GameObject winMenu;
     [SerializeField] GameObject tutorialScreen;
     [SerializeField] TextMeshProUGUI coinCounter;
     [SerializeField] GameObject signText;
@@ -79,5 +81,11 @@ public class GameManager : MonoBehaviour
     {
         signText.SetActive(false);
     }
-    
+
+    public void Win()
+    {
+        winMenu.SetActive(true);
+        Time.timeScale = 0;
+    }
+
 }

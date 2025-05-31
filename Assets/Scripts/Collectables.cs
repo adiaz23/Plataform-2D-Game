@@ -2,16 +2,17 @@ using UnityEngine;
 
 public class Collectables : MonoBehaviour
 {
-
-
     [SerializeField] private CollectableType type;
+
+    [SerializeField] private GameManager gameManager;
 
     private AudioSource audioSource;
 
     public enum CollectableType
     {
         Coin,
-        Star
+        Star,
+        Gem
     }
     private CircleCollider2D boxCollider;
     private SpriteRenderer spriteRenderer;
@@ -35,6 +36,9 @@ public class Collectables : MonoBehaviour
                 break;
             case CollectableType.Star:
                 player.MaxJumps = 2;
+                break;
+            case CollectableType.Gem:
+                gameManager.Win();
                 break;
         }
         OnCollect();
