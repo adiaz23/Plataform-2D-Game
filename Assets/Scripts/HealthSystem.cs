@@ -5,18 +5,19 @@ public class HealthSystem : MonoBehaviour
     [SerializeField] HealthBar healthBar;
     [SerializeField] private int lives;
 
+    private int maxLives = 100;
 
     private void Start()
-    {   
-        if(healthBar != null)
-            healthBar.SetMaxHealth(lives);
+    {
+        if (healthBar != null)
+            healthBar.SetMaxHealth(maxLives);
     }
 
     public void GetDamage(int damage)
     {
-            lives -= damage;
-            if (healthBar != null)
-                healthBar.SetHealth(lives);   
+        lives -= damage;
+        if (healthBar != null)
+            healthBar.SetHealth(lives);
     }
 
     public int GetLives()
@@ -32,6 +33,13 @@ public class HealthSystem : MonoBehaviour
     public void DestroyGameObject()
     {
         Destroy(gameObject);
+    }
+
+    public void RestoreHealth(int healthAmount)
+    {
+        lives = Mathf.Min(lives + healthAmount, maxLives);
+        if (healthBar != null)
+            healthBar.SetHealth(lives);
     }
 
 }

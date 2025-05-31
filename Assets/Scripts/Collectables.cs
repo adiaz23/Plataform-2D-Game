@@ -6,13 +6,16 @@ public class Collectables : MonoBehaviour
 
     [SerializeField] private GameManager gameManager;
 
+    [SerializeField] private int livesRestored = 10;
+
     private AudioSource audioSource;
 
     public enum CollectableType
     {
         Coin,
         Star,
-        Gem
+        Gem,
+        Potion
     }
     private CircleCollider2D boxCollider;
     private SpriteRenderer spriteRenderer;
@@ -28,6 +31,7 @@ public class Collectables : MonoBehaviour
     {
         if (!other.CompareTag("PlayerHitBox")) return;
         var player = other.GetComponent<Player>();
+        HealthSystem playerHealth = other.GetComponent<HealthSystem>();
 
         switch (type)
         {
@@ -39,6 +43,9 @@ public class Collectables : MonoBehaviour
                 break;
             case CollectableType.Gem:
                 gameManager.Win();
+                break;
+            case CollectableType.Potion:
+                playerHealth.RestoreHealth(livesRestored);
                 break;
         }
         OnCollect();
