@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System;
 
 public class ItemDrop : MonoBehaviour
 {
@@ -20,5 +19,4 @@ public class ItemDrop : MonoBehaviour
             }
         }
     }
-
 }

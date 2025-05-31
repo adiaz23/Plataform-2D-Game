@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 public class Lamp : MonoBehaviour
 {
@@ -14,5 +13,4 @@ public class Lamp : MonoBehaviour
         if(other.gameObject.CompareTag("PlayerHitBox"))
             lampLight.gameObject.SetActive(true);
     }
-
 }
