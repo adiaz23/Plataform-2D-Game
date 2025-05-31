@@ -27,6 +27,7 @@ public class HealthSystem : MonoBehaviour
 
     public void StartDeadAnimation(Animator animator)
     {
+        GetComponent<Collider2D>().enabled = false;
         animator.SetTrigger("dead");
     }
 
