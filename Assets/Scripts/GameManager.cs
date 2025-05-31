@@ -1,5 +1,5 @@
-using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,11 +7,10 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
     [SerializeField] GameObject gameOverMenu;
-
     [SerializeField] GameObject tutorialScreen;
-
+    [SerializeField] TextMeshProUGUI coinCounter;
     [SerializeField] Player player;
-    
+
     private bool isPause = false;
     private bool isOpened = false;
 
@@ -63,6 +62,11 @@ public class GameManager : MonoBehaviour
     {
         tutorialScreen.SetActive(false);
         isOpened = true;
+    }
+
+    public void UpdateCoinsCounter(int coins = 0)
+    {
+        coinCounter.text = $"{coins}";
     }
     
 }

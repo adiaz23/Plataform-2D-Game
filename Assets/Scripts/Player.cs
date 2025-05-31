@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
     private bool isJumping = false;
     private int jumpCount = 0;
     private float inputH;
-    private int coinsCollected = 0;
+    [SerializeField] private int coinsCollected = 0;
 
     private bool canMove = false;
     
@@ -57,6 +57,7 @@ public class Player : MonoBehaviour
         LauchAttack();
         Fall();
         Dead();
+        gameManager.UpdateCoinsCounter(coinsCollected);
     }
 
     private void Move()
