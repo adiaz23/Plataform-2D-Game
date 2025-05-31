@@ -115,7 +115,7 @@ MonoBehaviour:
   - {fileID: 7898627877507279833}
   - {fileID: 2697845258900816876}
   - {fileID: 8535355719153373132}
-  speedPatrol: 6
+  speedPatrol: 6.5
   attackDamage: 20
 --- !u!114 &6662415326494754330
 MonoBehaviour:
@@ -678,7 +678,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5378292141686471726, guid: 8020aecb2e680d840a330119ee337519, type: 3}
       propertyPath: speedPatrol
-      value: 6
+      value: 6.5
       objectReference: {fileID: 0}
     - target: {fileID: 5378292141686471726, guid: 8020aecb2e680d840a330119ee337519, type: 3}
       propertyPath: attackDamage
