@@ -104871,6 +104871,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8095785568794102333, guid: 4d618be5c94dc064e9f17cd5a444752d, type: 3}
+      propertyPath: probabilityWindow
+      value: 35
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -105870,6 +105874,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8095785568794102333, guid: 4d618be5c94dc064e9f17cd5a444752d, type: 3}
+      propertyPath: probabilityWindow
+      value: 35
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -106025,6 +106033,10 @@ PrefabInstance:
     - target: {fileID: 7812196576165135154, guid: 4d618be5c94dc064e9f17cd5a444752d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8095785568794102333, guid: 4d618be5c94dc064e9f17cd5a444752d, type: 3}
+      propertyPath: probabilityWindow
+      value: 35
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -120076,6 +120088,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 189849515151601059, guid: 5013ab61eed4d73459645a784aa36774, type: 3}
+      propertyPath: probabilityWindow
+      value: 35
+      objectReference: {fileID: 0}
     - target: {fileID: 873931768312458296, guid: 5013ab61eed4d73459645a784aa36774, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.89
@@ -120224,6 +120240,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1279873408}
     m_Modifications:
+    - target: {fileID: -8194901914663302132, guid: 1f8f0b3698880c346a9ebd54391c0248, type: 3}
+      propertyPath: probabilityWindow
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 2133692052550843734, guid: 1f8f0b3698880c346a9ebd54391c0248, type: 3}
       propertyPath: m_LocalPosition.x
       value: 176.9
@@ -122720,6 +122740,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1279873408}
     m_Modifications:
+    - target: {fileID: -8194901914663302132, guid: 1f8f0b3698880c346a9ebd54391c0248, type: 3}
+      propertyPath: probabilityWindow
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 2133692052550843734, guid: 1f8f0b3698880c346a9ebd54391c0248, type: 3}
       propertyPath: m_LocalPosition.x
       value: 366.45
@@ -123315,6 +123339,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 189849515151601059, guid: 5013ab61eed4d73459645a784aa36774, type: 3}
+      propertyPath: probabilityWindow
+      value: 35
+      objectReference: {fileID: 0}
     - target: {fileID: 873931768312458296, guid: 5013ab61eed4d73459645a784aa36774, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.31
@@ -123779,6 +123807,10 @@ PrefabInstance:
     - target: {fileID: 187314103696464323, guid: 5013ab61eed4d73459645a784aa36774, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 189849515151601059, guid: 5013ab61eed4d73459645a784aa36774, type: 3}
+      propertyPath: probabilityWindow
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 5341060376978094143, guid: 5013ab61eed4d73459645a784aa36774, type: 3}
       propertyPath: m_Name

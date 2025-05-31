@@ -32,6 +32,7 @@ public class HealthSystem : MonoBehaviour
 
     public void DestroyGameObject()
     {
+        GetComponent<ItemDrop>().DropItems();
         Destroy(gameObject);
     }
 
