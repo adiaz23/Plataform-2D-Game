@@ -7,27 +7,17 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
     [SerializeField] GameObject gameOverMenu;
-
     [SerializeField] GameObject winMenu;
-    [SerializeField] GameObject tutorialScreen;
     [SerializeField] TextMeshProUGUI coinCounter;
     [SerializeField] GameObject signText;
     [SerializeField] Player player;
-
+    
     private bool isPause = false;
-    private bool isOpened = false;
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
             Pause();
-
-        if (Input.anyKey && !isOpened)
-        {
-            CloseTutorial();
-            StartCoroutine(Wait(1f));
-            player.CanMove = true;
-        }
     }
 
     IEnumerator Wait(float time)
@@ -61,10 +51,9 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void CloseTutorial()
+    public void StartGame()
     {
-        tutorialScreen.SetActive(false);
-        isOpened = true;
+        SceneManager.LoadScene("Level1");  
     }
 
     public void UpdateCoinsCounter(int coins = 0)

@@ -37,11 +37,13 @@ public abstract class Enemy : MonoBehaviour
 
     protected IEnumerator Patrol()
     {
-        float steps = speedPatrol * Time.deltaTime;
+        yield return new WaitForEndOfFrame();
+
         while (gameObject)
         {
             while (transform.position != actualDestination)
             {
+                float steps = speedPatrol * Time.deltaTime;
                 transform.position = Vector3.MoveTowards(transform.position, actualDestination, steps);
                 yield return null;
             }
