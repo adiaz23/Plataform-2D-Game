@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject gameOverMenu;
     [SerializeField] GameObject tutorialScreen;
     [SerializeField] TextMeshProUGUI coinCounter;
+    [SerializeField] GameObject signText;
     [SerializeField] Player player;
 
     private bool isPause = false;
@@ -22,14 +23,14 @@ public class GameManager : MonoBehaviour
         if (Input.anyKey && !isOpened)
         {
             CloseTutorial();
-            StartCoroutine(Wait());
+            StartCoroutine(Wait(1f));
             player.CanMove = true;
         }
     }
 
-    IEnumerator Wait()
+    IEnumerator Wait(float time)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(time);
     }
 
     public void Pause()
@@ -67,6 +68,16 @@ public class GameManager : MonoBehaviour
     public void UpdateCoinsCounter(int coins = 0)
     {
         coinCounter.text = $"{coins}";
+    }
+
+    public void ShowText()
+    {
+        signText.SetActive(true);
+    }
+
+    public void HideText()
+    {
+        signText.SetActive(false);
     }
     
 }
