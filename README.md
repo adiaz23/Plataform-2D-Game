@@ -1,5 +1,6 @@
 # Enchanted Forest
 I developed a platform game in which the player takes the role of a female warrior, who is searching for the lost treasure of her village, to prove that she is worthy of her God's blessing. The game is for all audiences and is developed to run in browsers.
+![Screenshot_1](https://github.com/user-attachments/assets/bd14b38e-a871-4aa6-abc5-0ce08985d999)
 
 ## Mechanics
 
