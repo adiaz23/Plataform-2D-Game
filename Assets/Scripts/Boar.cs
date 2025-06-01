@@ -2,9 +2,8 @@ using UnityEngine;
 
 public class Boar : Enemy
 {
-    protected override void LaunchAttack()
+    protected override void EnemyDetected(Collider2D other)
     {
-    
+        animator.SetBool("running", true);
     }
-    
 }

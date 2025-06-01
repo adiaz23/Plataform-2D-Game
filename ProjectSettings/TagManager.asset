@@ -6,6 +6,11 @@ TagManager:
   tags:
   - PlayerHitBox
   - PlayerDetection
+  - Enemy
+  - Checkpoint
+  - AttackPoint
+  - Star
+  - Coins
   layers:
   - Default
   - TransparentFX

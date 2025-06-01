@@ -2,17 +2,15 @@ using UnityEngine;
 
 public class Bee : Enemy
 {
-
-    private Animator anim;
-
-    protected override void Start()
+    protected override void EnemyDetected(Collider2D other)
     {
-        anim = GetComponent<Animator>();
-        base.Start();
+        StopAllCoroutines();
+        StartCoroutine(FollowPlayer(other));
     }
 
-    protected override void LaunchAttack()
+    protected override void Attack(Collider2D other)
     {
-        anim.SetTrigger("Attack");
+        animator.SetTrigger("Attack");
+        base.Attack(other);
     }
 }

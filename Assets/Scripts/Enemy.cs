@@ -1,5 +1,4 @@
 using System.Collections;
-using Mono.Cecil.Cil;
 using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour
@@ -7,35 +6,43 @@ public abstract class Enemy : MonoBehaviour
     [Header("Movement System")]
     [SerializeField] protected Transform[] patrolPoints;
     [SerializeField] protected float speedPatrol;
-    
+
     [Header("Attack System")]
-    [SerializeField] protected float attackDamage;
-
-    [SerializeField] protected LayerMask dagamageableLayer;
-
-    [SerializeField] protected float attackRadius;
-
-    [SerializeField] protected Transform attackPoint;
-
-
+    [SerializeField] protected int attackDamage;
+    
     protected Vector3 actualDestination;
+    protected HealthSystem healthSystem;
+    protected Animator animator;
     protected int actualIndex = 0;
-
     protected bool canFollowPlayer = true;
+    private bool isActive = false;
 
     protected virtual void Start()
     {
+        animator = GetComponent<Animator>();
+        healthSystem = GetComponent<HealthSystem>();
         actualDestination = patrolPoints[actualIndex].position;
         StartCoroutine(Patrol());
     }
 
+    protected virtual void Update()
+    {
+        if (healthSystem.GetLives() <= 0 && !isActive)
+        {
+            healthSystem.StartDeadAnimation(animator);
+            isActive = true;
+        }
+    }
+
     protected IEnumerator Patrol()
     {
-        float steps = speedPatrol * Time.deltaTime;
+        yield return new WaitForEndOfFrame();
+
         while (gameObject)
         {
             while (transform.position != actualDestination)
             {
+                float steps = speedPatrol * Time.deltaTime;
                 transform.position = Vector3.MoveTowards(transform.position, actualDestination, steps);
                 yield return null;
             }
@@ -67,7 +74,7 @@ public abstract class Enemy : MonoBehaviour
 
     }
 
-    private IEnumerator FollowPlayer(Collider2D player)
+    protected IEnumerator FollowPlayer(Collider2D player)
     {
         while (gameObject && player != null)
         {
@@ -78,12 +85,9 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    protected abstract void LaunchAttack();
-
     //Animation event
-    protected virtual void Attack()
+    protected virtual void Attack(Collider2D player)
     {
-        Collider2D player = Physics2D.OverlapCircle(attackPoint.position, attackRadius, dagamageableLayer);
         if (player != null)
         {
             HealthSystem healthSystem = player.GetComponent<HealthSystem>();
@@ -92,29 +96,17 @@ public abstract class Enemy : MonoBehaviour
 
     }
 
-    //Animation event
-    protected virtual void Destroy()
-    {
-        Destroy(gameObject);
-    }
+    protected abstract void EnemyDetected(Collider2D other);
 
-    private void OnTriggerEnter2D(Collider2D other)
+    protected virtual void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("PlayerDetection"))
         {
-            StopAllCoroutines();
-            StartCoroutine(FollowPlayer(other));
+            EnemyDetected(other);
         }
         else if (other.gameObject.CompareTag("PlayerHitBox"))
         {
-            LaunchAttack();
+            Attack(other);
         }
     }
-    
-    private void OnDrawGizmos()
-    {
-        if(transform.position != null)
-            Gizmos.DrawSphere(attackPoint.position, attackRadius);
-    }
-
 }

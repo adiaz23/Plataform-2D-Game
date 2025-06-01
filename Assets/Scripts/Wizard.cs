@@ -6,22 +6,26 @@ public class Wizard : Enemy
 
     [SerializeField] private GameObject fireBall;
     [SerializeField] private float attackTime;
-
+    
     private Transform spawnFireBallsPoint;
-    private Animator anim;
 
     protected override void Start()
     {
-        anim = GetComponent<Animator>();
-        StartCoroutine(Attack());
+        animator = GetComponent<Animator>();
+        healthSystem = GetComponent<HealthSystem>();
         spawnFireBallsPoint = transform.GetChild(1);
     }
 
-    new IEnumerator Attack()
+    protected override void EnemyDetected(Collider2D other)
+    {
+        StartCoroutine(Attack());
+    }
+
+    IEnumerator Attack()
     {
         while (gameObject)
         {
-            anim.SetTrigger("attack");
+            animator.SetTrigger("attack");
             yield return new WaitForSeconds(attackTime);
         }
     }
@@ -30,10 +34,5 @@ public class Wizard : Enemy
     private void shootFireBall()
     {
         Instantiate(fireBall, spawnFireBallsPoint.position, transform.rotation);
-    }
-
-    protected override void LaunchAttack()
-    {
-
     }
 }
