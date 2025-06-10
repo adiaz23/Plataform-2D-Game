@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -20,6 +21,10 @@ public class DialogueManager : MonoBehaviour
             dialogText.text += letter;
             yield return new WaitForSeconds(0.05f);
         }
+    }
+
+    public void ShowTutorial(){
+        SceneManager.LoadScene("Tutorial");
     }
 
 
