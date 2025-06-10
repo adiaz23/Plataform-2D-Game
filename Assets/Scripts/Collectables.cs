@@ -1,3 +1,5 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class Collectables : MonoBehaviour
@@ -7,6 +9,8 @@ public class Collectables : MonoBehaviour
     [SerializeField] private GameManager gameManager;
 
     [SerializeField] private int livesRestored = 10;
+
+    [SerializeField] private GameObject tutorialText;
 
     private AudioSource audioSource;
 
@@ -40,6 +44,7 @@ public class Collectables : MonoBehaviour
                 break;
             case CollectableType.Star:
                 player.MaxJumps = 2;
+                StartCoroutine(ShowTutorial());
                 break;
             case CollectableType.Gem:
                 gameManager.Win();
@@ -56,5 +61,12 @@ public class Collectables : MonoBehaviour
         audioSource.PlayOneShot(audioSource.clip);
         boxCollider.enabled = false;
         spriteRenderer.enabled = false;
+    }
+
+    IEnumerator ShowTutorial()
+    {
+        tutorialText.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        tutorialText.SetActive(false);
     }
 }
