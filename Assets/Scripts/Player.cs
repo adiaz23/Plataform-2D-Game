@@ -53,7 +53,8 @@ public class Player : MonoBehaviour
         LauchAttack();
         Fall();
         Dead();
-        gameManager.UpdateCoinsCounter(coinsCollected);
+        if(gameManager != null)
+            gameManager.UpdateCoinsCounter(coinsCollected);
     }
 
     private void Move()

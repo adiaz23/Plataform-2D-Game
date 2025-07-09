@@ -51,9 +51,14 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
     public void StartGame()
     {
-        SceneManager.LoadScene("Level1");  
+        SceneManager.LoadScene("Level1");
     }
 
     public void UpdateCoinsCounter(int coins = 0)
